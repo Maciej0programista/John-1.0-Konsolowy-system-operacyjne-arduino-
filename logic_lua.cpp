@@ -4,9 +4,9 @@
 #include <lualib.h>
 #include <SPI.h>
 #include <SD.h>
+#include "Lua_compiler.h"
 
 lua_State *L;
-File root;
 
 void setupLua() {
   L = luaL_newstate();
@@ -24,7 +24,9 @@ void loopLua() {
 }
 
 void openLuaScript(const char* filename) {
-  if (luaL_dofile(L, filename) == LUA_OK) {
+  char fullPath[30];
+  sprintf(fullPath, "/app/%s.lua", filename);
+  if (luaL_dofile(L, fullPath) == LUA_OK) {
     Serial.print("Skrypt Lua ");
     Serial.print(filename);
     Serial.println(" uruchomiony pomyślnie.");
@@ -34,29 +36,31 @@ void openLuaScript(const char* filename) {
   }
 }
 
-void installLuaScripts() {
-  root = SD.open("/app");
-  int appCount = 0;
+void installLuaApps() {
+  File appDir = SD.open("/app");
+  int appCount = 1;
+
   while (true) {
-    File entry = root.openNextFile();
+    File entry = appDir.openNextFile();
     if (!entry) {
       break;
     }
     if (entry.isDirectory()) {
-      continue;
-    }
-    if (entry.name().endsWith(".lua")) {
-      appCount++;
-      if (appCount <= 9) {
+      String appName = entry.name();
+      appName.remove(0, 4);
+      char outputFilename[30];
+      sprintf(outputFilename, "/app/app%d.lua", appCount);
+      if (compileLuaApp(entry.name(), outputFilename)) {
         Serial.print("Zainstalowano aplikację ");
         Serial.print(appCount);
         Serial.print(": ");
-        Serial.println(entry.name());
+        Serial.println(appName);
+        appCount++;
       }
     }
     entry.close();
   }
-  root.close();
+  appDir.close();
 }
 
 bool createAppFolder() {
@@ -73,4 +77,22 @@ bool createAppFolder() {
     Serial.println("Folder /app już istnieje.");
     return true;
   }
+}
+
+void setKeyFunction(char key, const char* functionName) {
+  // TODO: Zaimplementuj zapisywanie przypisania klawisza
+  Serial.print("Przypisano funkcję '");
+  Serial.print(functionName);
+  Serial.print("' do klawisza '");
+  Serial.print(key);
+  Serial.println("'.");
+}
+
+void setAppForButton(char key, const char* appName) {
+  // TODO: Zaimplementuj zapisywanie przypisania aplikacji do przycisku
+  Serial.print("Przypisano aplikację '");
+  Serial.print(appName);
+  Serial.print("' do klawisza '");
+  Serial.print(key);
+  Serial.println("'.");
 }
