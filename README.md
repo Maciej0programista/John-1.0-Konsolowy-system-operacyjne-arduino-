@@ -47,10 +47,3 @@ Witaj w **John 1.0**, prostym, ale funkcjonalnym systemie operacyjnym dla **Ardu
 ```lua
 print("Witaj w aplikacji Hello!")
 -- Dodaj tutaj swój kod Lua
-Pamiętaj, że możesz dostosować ten README.md do swoich potrzeb, dodając więcej informacji o swoim projekcie, takie jak:
-
-* **Schemat połączeń:**  Dodaj schemat pokazujący, jak podłączyć wszystkie komponenty.
-* **Opis funkcji:** Dokładniej opisz funkcje systemu operacyjnego i dostępne komendy.
-* **Przykłady skryptów Lua:** Dodaj więcej przykładowych skryptów Lua, aby pokazać możliwości systemu.
-* **Informacje o autorze:**  Dodaj swoje imię i nazwisko lub pseudonim jako autora projektu.
-* **Licencja:** Określ licencję na korzystanie z Twojego kodu.
