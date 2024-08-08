@@ -6,16 +6,11 @@ Witaj w **John 1.2**, najnowszej aktualizacji naszego klasycznego konsolowego sy
 
 * **:gear: Aplikacja Ustawienia:**  
     Teraz możesz dostosować Johna do swoich potrzeb! Otwórz aplikację Ustawienia (klawisz `0`), aby:
-    * Zmienić przypisanie klawiszy funkcyjnych. Chcesz, aby `*` działał jak Enter?  Żaden problem!
-    * Przypisać ulubione aplikacje Lua do dowolnych przycisków. Szybki dostęp do tego, co najważniejsze! 
+    * Zmienić przypisanie klawiszy funkcyjnych. Chcesz, aby `*` działał jak Enter? Żaden problem!
+    * Przypisać ulubione aplikacje Lua do dowolnych przycisków. Szybki dostęp do tego, co najważniejsze!
 
 * **:open_file_folder: Ulepszone zarządzanie aplikacjami:**  
     John 1.2 obsługuje teraz wielo-plikowe aplikacje Lua! Organizuj swój kod w logiczne moduły i umieść je w osobnych plikach w folderze aplikacji. John automatycznie skompiluje je w jedną całość podczas uruchamiania.
-
-* **:rocket: Nowe funkcje Lua:**  
-    Dostępne są nowe funkcje Lua, które dają większą kontrolę nad systemem:
-    * `setKeyFunction(klawisz, nazwa_funkcji)`:  Zmienia przypisanie funkcji do danego klawisza.
-    * `setAppForButton(klawisz, nazwa_aplikacji)`:  Przypisuje aplikację do danego przycisku. 
 
 ## :electric_plug: Wymagany sprzęt:
 
@@ -40,17 +35,13 @@ Witaj w **John 1.2**, najnowszej aktualizacji naszego klasycznego konsolowego sy
 
 1. **Stwórz folder dla swojej aplikacji w katalogu `/app` na karcie SD.** Nazwa folderu będzie nazwą Twojej aplikacji.
 2. **Stwórz plik `main.lua` wewnątrz folderu aplikacji.** To będzie główny plik Twojej aplikacji.
-3. **Napisz kod Lua w pliku `main.lua`.** Możesz korzystać z funkcji standardowej biblioteki Lua oraz funkcji udostępnionych przez John 1.2.
-4. **Uruchom John 1.2:** Po włączeniu telefoniku, naciśnij odpowiednią cyfrę na klawiaturze, aby uruchomić aplikację. Aby wejść do Ustawień, naciśnij klawisz `0`.
+3. **Napisz kod Lua w pliku `main.lua`.** 
+4. **Uruchom John 1.2:** Po włączeniu, naciśnij odpowiednią cyfrę na klawiaturze, aby uruchomić aplikację. Aby wejść do Ustawień, naciśnij klawisz `0`.
 
-## :blue_book: Przykładowe aplikacje Lua:
+## :information_source:  Funkcje Lua:
 
-Repozytorium Johna 1.2 zawiera teraz przykładowe aplikacje, takie jak kalkulator, zegar, gry i wiele innych! Zainspiruj się i twórz własne!
-
-## :information_source:  John 1.2 to:
-
-* **Prostota:**  Łatwy w obsłudze i intuicyjny interfejs konsolowy.
-* **Elastyczność:**  Możliwość dostosowania funkcji klawiszy i tworzenia wielo-plikowych aplikacji Lua.
-* **Rozszerzalność:**  Twórz własne aplikacje Lua i rozszerzaj funkcjonalność systemu.
+* `print(tekst)`: Wyświetla tekst na ekranie LCD.
+* `setKeyFunction(klawisz, "nazwa_funkcji")`:  Zmienia przypisanie funkcji do danego klawisza.
+* `setAppForButton(klawisz, "nazwa_aplikacji")`:  Przypisuje aplikację do danego przycisku. 
 
 **John 1.2 - Twój spersonalizowany asystent na Arduino!**
