@@ -32,6 +32,9 @@ unsigned long lastStarPressTime = 0;
 // Pozycja kursora na ekranie (dla scrollowania)
 int cursorY = 0;
 
+// Flaga wskazująca, czy jesteśmy w aplikacji Ustawienia
+bool inSettings = false;
+
 // Funkcja do obsługi klawiatury
 char readKeypad() {
   char key = keypad.getKey();
@@ -44,17 +47,15 @@ char readKeypad() {
 
 void setupMainLogic() {
   lcd.begin(16, 2);
+
   // Ekran powitalny
-  lcd.print("Welcome to John 1.0");
+  lcd.print("Welcome to John 1.2");
   delay(8000);
   lcd.clear();
 
   // Sprawdzenie, czy to pierwsze uruchomienie
   if (EEPROM.read(0) == 0) {
-    // Ustaw flagę pierwszego uruchomienia
     EEPROM.write(0, 1);
-
-    // Tworzenie folderu "app" na karcie SD
     if (createAppFolder()) {
       lcd.print("Folder /app");
       lcd.setCursor(0, 1);
@@ -66,32 +67,30 @@ void setupMainLogic() {
       lcd.print("folderu /app");
       delay(3000);
     }
-  } else {
-    Serial.println("Folder /app już istnieje.");
   }
 
   isOn = true;
-  installLuaScripts();
+  installLuaApps();
+  redrawMainMenu();
 }
 
 void loopMainLogic() {
-  // Odczytywanie danych z klawiatury
   char keyPressed = readKeypad();
 
   // Obsługa przycisku # (włączanie/wyłączanie)
   if (keyPressed == '#') {
     if (millis() - lastHashPressTime > 5000) {
-      // Przytrzymanie przycisku # przez 5 sekund
       isOn = !isOn;
       if (isOn) {
         lcd.clear();
-        lcd.print("John 1.0");
-        installLuaScripts();
+        lcd.print("John 1.2");
+        installLuaApps();
+        delay(2000);
+        redrawMainMenu();
       } else {
         lcd.clear();
         lcd.print("Wylaczanie...");
         delay(1000);
-        // Przejdź w tryb uśpienia
         LowPower.powerDown(SLEEP_FOREVER, ADC_OFF, BOD_OFF);
       }
     }
@@ -99,42 +98,62 @@ void loopMainLogic() {
     lastHashPressTime = millis();
   }
 
-  // Obsługa przycisku * (scroll)
-  if (keyPressed == '*' && isOn) {
-    if (millis() - lastStarPressTime < 500) {
-      // Pojedyncze kliknięcie: Scroll down o 2 piksele
-      cursorY = (cursorY + 2) % lcd.rows();
-      lcd.setCursor(0, cursorY);
-    } else if (millis() - lastStarPressTime > 1000) {
-      // Przytrzymanie: Scroll up o 1 piksel na sekundę
-      cursorY = (cursorY - 1 + lcd.rows()) % lcd.rows();
-      lcd.setCursor(0, cursorY);
-    }
-  } else {
-    lastStarPressTime = millis();
-  }
-
-  // Obsługa pozostałych przycisków
   if (isOn) {
-    switch (keyPressed) {
-      case '1': case '2': case '3': case '4': case '5':
-      case '6': case '7': case '8': case '9': case '0':
-        // Uruchomienie aplikacji o numerze odpowiadającym wciśniętemu klawiszowi
-        openLuaScript(String("/app/app") + keyPressed + ".lua");
-        break;
-      case 'A': lcd.print("+"); break;
-      case 'B': lcd.print("x"); break;
-      case 'C': lcd.print("/"); break;
-      case 'D': lcd.print("="); break;
+    if (inSettings) {
+      handleSettingsInput(keyPressed);
+    } else {
+      handleMainMenuInput(keyPressed);
     }
   }
+}
 
-  // Obsługa przytrzymania przycisku # (scroll down)
-  if (/* Przycisk # jest wciśnięty */ && isOn) {
-    if (millis() - lastHashPressTime > 1000) {
-      // Przytrzymanie: Scroll down o 1 piksel na sekundę
-      cursorY = (cursorY + 1) % lcd.rows();
-      lcd.setCursor(0, cursorY);
-    }
+void handleMainMenuInput(char keyPressed) {
+  switch (keyPressed) {
+    case '0':
+      inSettings = true;
+      redrawSettingsMenu();
+      break;
+    case '1': case '2': case '3': case '4': case '5':
+    case '6': case '7': case '8': case '9':
+      openLuaScript(String("app") + keyPressed);
+      break;
+    case '*':
+      if (millis() - lastStarPressTime < 500) {
+        // Pojedyncze kliknięcie: Scroll down
+        cursorY = (cursorY + 1) % 4; // Zakładając 4 linie tekstu na ekranie
+      } else if (millis() - lastStarPressTime > 1000) {
+        // Przytrzymanie: Scroll up
+        cursorY = (cursorY - 1 + 4) % 4;
+      }
+      redrawMainMenu();
+      break;
   }
+  lastStarPressTime = millis();
+}
+
+void handleSettingsInput(char keyPressed) {
+  // TODO: Zaimplementuj obsługę ustawień
+  lcd.clear();
+  lcd.print("Ustawienia");
+
+  // Przykładowa obsługa powrotu do menu głównego
+  if (keyPressed == '#') {
+    inSettings = false;
+    redrawMainMenu();
+  }
+}
+
+void redrawMainMenu() {
+  lcd.clear();
+  lcd.setCursor(0, cursorY);
+  for (int i = 1; i <= 9; i++) {
+    lcd.print(String("App ") + i);
+    lcd.setCursor(0, (cursorY + i) % 4);
+  }
+}
+
+void redrawSettingsMenu() {
+  // TODO: Zaimplementuj rysowanie menu ustawień
+  lcd.clear();
+  lcd.print("Ustawienia");
 }
