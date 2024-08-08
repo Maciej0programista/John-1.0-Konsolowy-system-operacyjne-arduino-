@@ -1,20 +1,21 @@
-# John 1.0 - Prosty konsolowy system operacyjny na Arduino Mega
+# John 1.2 - Personalizacja i kontrola w Twoich rękach!
 
-Witaj w **John 1.0**, prostym, ale funkcjonalnym systemie operacyjnym dla **Arduino Mega**, który pozwala na uruchamianie aplikacji napisanych w **Lua**! Ten projekt to idealny punkt wyjścia do nauki programowania mikrokontrolerów i tworzenia własnych interaktywnych urządzeń.
+Witaj w **John 1.2**, najnowszej aktualizacji naszego klasycznego konsolowego systemu operacyjnego dla Arduino Mega! John 1.2 wprowadza szereg ulepszeń, skupiając się na **personalizacji** i **łatwiejszym dostępie** do Twoich aplikacji.
 
-## :gear: Funkcjonalność:
+## :sparkles: Co nowego w John 1.2?
 
-* **Ekran powitalny:** Po uruchomieniu systemu wyświetla się ekran powitalny "Welcome to John 1.0" przez 8 sekund.
-* **Menu główne:** Po ekranie powitalnym system wyświetla listę zainstalowanych aplikacji (maksymalnie 9) wraz z ich numerami.
-* **Uruchamianie aplikacji:** Wystarczy wcisnąć odpowiednią cyfrę na klawiaturze, aby uruchomić wybraną aplikację.
-* **Interfejs konsolowy:** Wyświetlaj tekst i odczytuj dane wejściowe za pomocą ekranu LCD i klawiatury.
-* **Obsługa podstawowych działań matematycznych:** Użyj klawiszy A, B, C, D do wprowadzania znaków +, ×, ÷, =.
-* **Funkcja przewijania:** Przewijaj treść ekranu za pomocą przycisku `*`:
-    * :point_down: Pojedyncze kliknięcie: Przewiń w dół o 2 linie.
-    * :arrow_up: Przytrzymanie: Przewiń w górę o 1 linię na sekundę.
-* **Włączanie/wyłączanie:** 
-    * :arrow_right: Przytrzymaj przycisk `#` przez 5 sekund, aby włączyć lub wyłączyć urządzenie.  
-    * :arrow_left: Przytrzymanie `#` podczas wyłączonego urządzenia go włączy.
+* **:gear: Aplikacja Ustawienia:**  
+    Teraz możesz dostosować Johna do swoich potrzeb! Otwórz aplikację Ustawienia (klawisz `0`), aby:
+    * Zmienić przypisanie klawiszy funkcyjnych. Chcesz, aby `*` działał jak Enter?  Żaden problem!
+    * Przypisać ulubione aplikacje Lua do dowolnych przycisków. Szybki dostęp do tego, co najważniejsze! 
+
+* **:open_file_folder: Ulepszone zarządzanie aplikacjami:**  
+    John 1.2 obsługuje teraz wielo-plikowe aplikacje Lua! Organizuj swój kod w logiczne moduły i umieść je w osobnych plikach w folderze aplikacji. John automatycznie skompiluje je w jedną całość podczas uruchamiania.
+
+* **:rocket: Nowe funkcje Lua:**  
+    Dostępne są nowe funkcje Lua, które dają większą kontrolę nad systemem:
+    * `setKeyFunction(klawisz, nazwa_funkcji)`:  Zmienia przypisanie funkcji do danego klawisza.
+    * `setAppForButton(klawisz, nazwa_aplikacji)`:  Przypisuje aplikację do danego przycisku. 
 
 ## :electric_plug: Wymagany sprzęt:
 
@@ -33,17 +34,23 @@ Witaj w **John 1.0**, prostym, ale funkcjonalnym systemie operacyjnym dla **Ardu
 2. **Zainstaluj biblioteki:** Zainstaluj biblioteki **Lua**, **SD**, **LiquidCrystal**, **Keypad** i **LowPower** w Arduino IDE. Możesz to zrobić za pomocą Menedżera Bibliotek w IDE (Sketch -> Include Library -> Manage Libraries...).
 3. **Podłącz sprzęt:** Połącz Arduino Mega, ekran LCD, klawiaturę i czytnik kart SD zgodnie z dostarczonym schematem połączeń.
 4. **Skonfiguruj piny:** W pliku `logic_main.cpp` dostosuj piny klawiatury (`rowPins` i `colPins`) do swojego połączenia oraz piny dla LCD, jeśli używasz innych niż domyślne.
-5. **Wgraj kod:** Skopiuj kod z plików `main.cpp`, `logic_lua.cpp`, `logic_lua.h`, `logic_main.cpp` i `logic_main.h` do Arduino IDE i wgraj go na Arduino Mega.
+5. **Wgraj kod:** Skopiuj kod z plików `main.cpp`, `logic_lua.cpp`, `logic_lua.h`, `logic_main.cpp`, `logic_main.h`, `Lua_compiler.cpp` i `Lua_compiler.h` do Arduino IDE i wgraj go na Arduino Mega.
 
 ## :pencil2: Tworzenie aplikacji w Lua:
 
-1. **Stwórz nowy plik z rozszerzeniem `.lua`.** 
-2. **Napisz kod Lua w pliku.** Możesz korzystać z funkcji standardowej biblioteki Lua oraz funkcji udostępnionych przez John 1.0.
-3. **Zapisz plik w folderze `/app` na karcie SD.** Nazwa pliku musi być w formacie `appX.lua`, gdzie `X` to cyfra od 1 do 9, odpowiadająca numerowi aplikacji w menu.
-4. **Uruchom aplikację:** Po włączeniu telefoniku, naciśnij odpowiednią cyfrę na klawiaturze, aby uruchomić aplikację.
+1. **Stwórz folder dla swojej aplikacji w katalogu `/app` na karcie SD.** Nazwa folderu będzie nazwą Twojej aplikacji.
+2. **Stwórz plik `main.lua` wewnątrz folderu aplikacji.** To będzie główny plik Twojej aplikacji.
+3. **Napisz kod Lua w pliku `main.lua`.** Możesz korzystać z funkcji standardowej biblioteki Lua oraz funkcji udostępnionych przez John 1.2.
+4. **Uruchom John 1.2:** Po włączeniu telefoniku, naciśnij odpowiednią cyfrę na klawiaturze, aby uruchomić aplikację. Aby wejść do Ustawień, naciśnij klawisz `0`.
 
-**Przykładowy skrypt Lua (app1.lua):**
+## :blue_book: Przykładowe aplikacje Lua:
 
-```lua
-print("Witaj w aplikacji Hello!")
--- Dodaj tutaj swój kod Lua
+Repozytorium Johna 1.2 zawiera teraz przykładowe aplikacje, takie jak kalkulator, zegar, gry i wiele innych! Zainspiruj się i twórz własne!
+
+## :information_source:  John 1.2 to:
+
+* **Prostota:**  Łatwy w obsłudze i intuicyjny interfejs konsolowy.
+* **Elastyczność:**  Możliwość dostosowania funkcji klawiszy i tworzenia wielo-plikowych aplikacji Lua.
+* **Rozszerzalność:**  Twórz własne aplikacje Lua i rozszerzaj funkcjonalność systemu.
+
+**John 1.2 - Twój spersonalizowany asystent na Arduino!**
