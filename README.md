@@ -1,6 +1,8 @@
 # John 1.2 - Personalizacja i kontrola w Twoich rękach!
 # Jeśli spodobał Ci się ten projekt lub z niego korzystasz, proszę podziel się swoimi wrażeniami i napisz do mnie na adres: bosyjjakub@gmail.com
-Witaj w **John 1.2**, najnowszej aktualizacji naszego klasycznego konsolowego systemu operacyjnego dla Arduino Mega! John 1.2 wprowadza szereg ulepszeń, skupiając się na **personalizacji** i **łatwiejszym dostępie** do Twoich aplikacji.
+# Jeśli chcecie się skontaktować lub coś zapytać ruwnierz zapraszam na serwer:https://discord.com/invite/6mCAdnYa
+Witaj w **John 1.2**, najnowszej
+aktualizacji naszego klasycznego konsolowego systemu operacyjnego dla Arduino Mega! John 1.2 wprowadza szereg ulepszeń, skupiając się na **personalizacji** i **łatwiejszym dostępie** do Twoich aplikacji.
 
 ## :sparkles: Co nowego w John 1.2?
 
